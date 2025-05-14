@@ -1,4 +1,4 @@
-public class Player extends Entities {
+public class ExtraLife extends Powerup {
     private int health;
     private int speed;
     private String name;
@@ -35,5 +35,9 @@ public class Player extends Entities {
     
     public int getHealth() {
     	return health;
+    }
+    
+    public void setHealth(int hp) {
+    	health = hp;
     }
 }

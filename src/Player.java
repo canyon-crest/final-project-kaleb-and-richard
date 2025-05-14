@@ -40,4 +40,14 @@ public class ExtraLife extends Powerup {
     public void setHealth(int hp) {
     	health = hp;
     }
+    
+    public int getSpeed() {
+    	return speed;
+    }
+    
+    public void setSpeed(int hp) {
+    	speed = hp;
+    }
+    
+    
 }

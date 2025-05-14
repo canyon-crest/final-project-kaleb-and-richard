@@ -4,8 +4,8 @@ public class Player extends Entities {
     private String name;
     private ArrayList<Powerup> powerUps;
     
-    public Player(int lane, int ypos, int maxSpeed, boolean isDestroyed, int hp, int s, String str) {
-    	super(lane, ypos, maxSpeed, isDestroyed);
+    public Player(int lane, int ypos, int hp, int s, String str) {
+    	super(lane, ypos);
     	health = hp;
     	speed = s;
     	name = str;

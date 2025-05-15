@@ -1,5 +1,5 @@
 public class Entity {
-	protected int lane;
+	private int lane;
 	private int yPos;
 	public static int maxSpeed;
 	private boolean isDestroyed = false;
@@ -42,5 +42,23 @@ public class Entity {
 	
 	public static void changeAccelRate(int newRate) { // change acceleration based on difficulty level
 		accelRate = newRate;
+	}
+	
+	public int getLane()
+	{
+		return lane;
+	}
+	public int getY()
+	{
+		return yPos;
+	}
+	
+	public void setLane(int lane)
+	{
+		this.lane = lane;
+	}
+	public void setY(int y)
+	{
+		this.yPos = y;
 	}
 }

@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Player extends Entity {
@@ -51,5 +52,8 @@ public class Player extends Entity {
     	speed = hp;
     }
     
-    
+    public void draw(Graphics g)
+    {
+    	g.drawRect(0, 0, speed, health);
+    }
 }

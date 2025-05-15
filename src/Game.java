@@ -36,14 +36,15 @@ public class Game {
 	
 	private void update() {
 		// TODO Auto-generated method stub
-		panel.repaint();
+		panel.repaint(player, entities);
 	}
 
 	public void startGame()
 	{
 		String name = JOptionPane.showInputDialog("Input a name:");
 		player = new Player(1, HEIGHT - 100, 1, 10, name);
-		panel.repaint();
+		entities = new ArrayList<Entity>();
+		update();
 		timer.start();
 	}
 }

@@ -1,3 +1,5 @@
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -5,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Game {
+public class Game implements KeyListener {
 	public static final int WIDTH = 450;
 	public static final int HEIGHT = 600;
 	public static final int FPS = 60;
@@ -29,6 +31,7 @@ public class Game {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
+		frame.addKeyListener(this);
 		
 		timer = new Timer(1000/FPS, (e) -> update());
 		
@@ -52,5 +55,27 @@ public class Game {
 		entities.add(new Enemy(5));
 		update();
 		timer.start();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
+		if (e.getKeyCode() == 68 && player.getLane() < 2)
+			player.setLane(player.getLane() + 1);
+		if (e.getKeyCode() == 65 && player.getLane() > 0)
+			player.setLane(player.getLane() - 1);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

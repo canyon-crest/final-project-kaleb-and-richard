@@ -3,7 +3,7 @@ public class Powerup extends Entity {
 	private String description;
 	
 	public Powerup(String name, String description) {
-		super((int)(Math.random()*3),0);
+		super((int)(Math.random()*3), 0, 0);
 		this.name = name;
 		this.description = description;
 	}

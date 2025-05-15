@@ -1,4 +1,6 @@
-public class ExtraLife extends Powerup {
+import java.util.ArrayList;
+
+public class Player extends Entity {
     private int health;
     private int speed;
     private String name;

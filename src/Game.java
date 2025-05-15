@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -11,6 +12,9 @@ public class Game {
 	private JFrame frame;
 	private GamePanel panel;
 	private Timer timer;
+	
+	private Player player;
+	private ArrayList<Entity> entities;
 	
 	public static void main(String[] args) {
 		new Game().run();
@@ -37,6 +41,8 @@ public class Game {
 
 	public void startGame()
 	{
+		String name = JOptionPane.showInputDialog("Input a name:");
+		player = new Player(1, HEIGHT - 100, 1, 10, name);
 		panel.repaint();
 		timer.start();
 	}

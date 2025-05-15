@@ -1,4 +1,4 @@
-public class Entities {
+public class Entity {
 	protected int lane;
 	private int yPos;
 	public static int maxSpeed;
@@ -6,12 +6,12 @@ public class Entities {
 	public static int accelRate;
 	private int speed;
 	
-	public Entities(int startLane, int startY) {
+	public Entity(int startLane, int startY) {
 		lane = startLane;
 		yPos = startY;
 	}
 	
-	public boolean isTouching(Entities other) {
+	public boolean isTouching(Entity other) {
 		if (other.lane == this.lane && Math.abs(other.yPos - this.yPos) < 10) {
 			return true;
 		}

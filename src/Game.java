@@ -52,7 +52,7 @@ public class Game implements KeyListener {
 		String name = JOptionPane.showInputDialog("Input a name:");
 		player = new Player(1, HEIGHT - 100, 1, 10, name);
 		entities = new ArrayList<Entity>();
-		entities.add(new Enemy(5));
+		entities.add(new Enemy(5, 3, 1.0));
 		update();
 		timer.start();
 	}
@@ -66,7 +66,7 @@ public class Game implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getKeyCode());
+		//System.out.println(e.getKeyCode());
 		if (e.getKeyCode() == 68 && player.getLane() < 2)
 			player.setLane(player.getLane() + 1);
 		if (e.getKeyCode() == 65 && player.getLane() > 0)

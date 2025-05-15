@@ -4,9 +4,15 @@ import java.util.Timer;
 
 public class Enemy extends Entity {
 	boolean alive = true;
+	private int laneChangeCooldown;
+	private int laneChangeCount;
+	private double laneChangeChance;
 	
-	public Enemy(int speed) {
+	public Enemy(int speed, int cd, double chance) {
 		super((int)(Math.random()*3),0, speed);
+		laneChangeCooldown = cd;
+		laneChangeCount = 0;
+		laneChangeChance = chance;
 	}
 	
 	public void removeHealth(Player player) {

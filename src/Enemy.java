@@ -3,6 +3,8 @@ import java.awt.Graphics;
 import java.util.Timer;
 
 public class Enemy extends Entity {
+	boolean alive = true;
+	
 	public Enemy(int speed) {
 		super((int)(Math.random()*3),0, speed);
 	}
@@ -11,8 +13,22 @@ public class Enemy extends Entity {
 		player.removeHealth(1);
 	}
 	
-	public void changeLane() {
-		super.setLane((int)(Math.random()*3));
+	public void die() {
+		alive = false;
+	}
+	
+	public void changeLane(Player p) {
+		while (p.getHealth() > 0) {
+			try {
+				Thread.sleep((long) (Math.random()*2+1));
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (alive) {
+				super.setLane((int)(Math.random()*3));
+			}
+		}
 	}
 	
 	

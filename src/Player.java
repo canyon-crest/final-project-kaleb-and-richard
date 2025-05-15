@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -54,6 +55,7 @@ public class Player extends Entity {
     
     public void draw(Graphics g)
     {
-    	g.drawRect(0, 0, speed, health);
+    	g.setColor(Color.BLUE);
+    	g.fillRect(150 * getLane() + 50, getY() - 50, 50, 100);
     }
 }

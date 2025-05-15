@@ -10,18 +10,6 @@ public class Enemy extends Entity {
 	}
 	
 	public void changeLane() {
-		super.lane = (int)(Math.random()*3);
-	}
-	
-	public void move(Player p) { // increment yPos by speed every x amount of time
-		while (p.getHealth() != 0) {
-			try {
-				Thread.sleep(1000/24);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			p.moveY(speed);
-		}
+		super.setLane((int)(Math.random()*3));
 	}
 }

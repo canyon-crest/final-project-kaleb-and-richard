@@ -24,8 +24,16 @@ public class Entity {
 		this.speed += speed;
 	}
 	
-	private void accelerate() { // increment speed by 5 every accelRate seconds
-		
+	private void accelerate(Player p) { // increment speed by 5 every accelRate seconds
+		while(p.getHealth() != 0) {
+			try {
+				Thread.sleep(accelRate*1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			speed += 5;
+		}
 	}
 	
 	public static void changeMaxSpeed(int newLimit) { // change max speed based on difficulty level

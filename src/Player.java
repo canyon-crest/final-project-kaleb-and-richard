@@ -4,14 +4,12 @@ import java.util.ArrayList;
 
 public class Player extends Entity {
     private int health;
-    private int speed;
     private String name;
     private ArrayList<Powerup> powerUps;
     
     public Player(int lane, int ypos, int hp, int s, String str) {
-    	super(lane, ypos);
+    	super(lane, ypos, s);
     	health = hp;
-    	speed = s;
     	name = str;
     	powerUps = new ArrayList<Powerup>();
     }
@@ -27,6 +25,11 @@ public class Player extends Entity {
     			break;
     		}
     	}
+    }
+    
+    public ArrayList<Powerup> getPowerups()
+    {
+    	return powerUps;
     }
     
     public void addHealth(int hp) {
@@ -45,13 +48,7 @@ public class Player extends Entity {
     	health = hp;
     }
     
-    public int getSpeed() {
-    	return speed;
-    }
     
-    public void setSpeed(int hp) {
-    	speed = hp;
-    }
     
     public void draw(Graphics g)
     {

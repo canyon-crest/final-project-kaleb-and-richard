@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Entity {
 	private int lane;
 	private int yPos;
@@ -6,9 +9,10 @@ public class Entity {
 	public static int accelRate;
 	private int speed;
 	
-	public Entity(int startLane, int startY) {
+	public Entity(int startLane, int startY, int startSpeed) {
 		lane = startLane;
 		yPos = startY;
+		speed = startSpeed;
 	}
 	
 	public boolean isTouching(Entity other) {
@@ -18,10 +22,6 @@ public class Entity {
 		else {
 			return false;
 		}
-	}
-	
-	public void changeSpeed(int speed) {
-		this.speed += speed;
 	}
 	
 	private void accelerate(Player p) { // increment speed by 5 every accelRate seconds
@@ -44,6 +44,18 @@ public class Entity {
 		accelRate = newRate;
 	}
 	
+    public int getSpeed() {
+    	return speed;
+    }
+    
+    public void setSpeed(int s) {
+    	speed = s;
+    }
+	
+	public void changeSpeed(int speed) {
+		this.speed += speed;
+	}
+	
 	public int getLane()
 	{
 		return lane;
@@ -63,14 +75,23 @@ public class Entity {
 	}
 	
 	public void move(Player p) { // increment yPos by speed every x amount of time
-		while (p.getHealth() != 0) {
-			try {
-				Thread.sleep(1000/24);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			yPos += speed;
-		}
+		yPos += p.getSpeed() - getSpeed();
+//		while (p.getHealth() != 0) {
+//			try {
+//				Thread.sleep(1000/24);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			yPos += speed;
+//		}
 	}
+	
+	
+	
+	public void draw(Graphics g)
+    {
+    	g.setColor(Color.WHITE);
+    	g.fillRect(150 * getLane() + 50, getY() - 25, 50, 50);
+    }
 }

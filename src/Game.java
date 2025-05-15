@@ -8,6 +8,7 @@ import javax.swing.Timer;
 public class Game {
 	public static final int WIDTH = 450;
 	public static final int HEIGHT = 600;
+	public static final int FPS = 60;
 	
 	private JFrame frame;
 	private GamePanel panel;
@@ -29,13 +30,17 @@ public class Game {
 		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
 		
-		timer = new Timer(1000/24, (e) -> update());
+		timer = new Timer(1000/FPS, (e) -> update());
 		
 		startGame();
 	}
 	
 	private void update() {
 		// TODO Auto-generated method stub
+		for (Entity e : entities)
+		{
+			e.move(player);
+		}
 		panel.repaint(player, entities);
 	}
 
@@ -44,6 +49,7 @@ public class Game {
 		String name = JOptionPane.showInputDialog("Input a name:");
 		player = new Player(1, HEIGHT - 100, 1, 10, name);
 		entities = new ArrayList<Entity>();
+		entities.add(new Enemy(5));
 		update();
 		timer.start();
 	}

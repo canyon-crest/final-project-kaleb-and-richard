@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
+	private Font font;
+	public GamePanel()
+	{
+		font = new Font("Arial", Font.PLAIN, 16);
+	}
 	public void repaint(Player player, ArrayList<Entity> entities)
 	{
 		paintComponent(getGraphics(), player, entities);
@@ -20,9 +25,13 @@ public class GamePanel extends JPanel {
 		g.fillRect(449, 0, 2, Game.HEIGHT);
 		
 		player.draw(g);
+		for (Entity e : entities)
+		{
+			e.draw(g);
+		}
 		
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial", Font.PLAIN, 16));
+		g.setFont(font);
 		g.drawString("SCORE: ", 10, 25);
 	}
 }

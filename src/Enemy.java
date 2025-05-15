@@ -1,8 +1,10 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Timer;
 
 public class Enemy extends Entity {
-	public Enemy() {
-		super((int)(Math.random()*3),0);
+	public Enemy(int speed) {
+		super((int)(Math.random()*3),0, speed);
 	}
 	
 	public void removeHealth(Player player) {
@@ -11,5 +13,13 @@ public class Enemy extends Entity {
 	
 	public void changeLane() {
 		super.setLane((int)(Math.random()*3));
+	}
+	
+	
+	
+	public void draw(Graphics g)
+	{
+		g.setColor(Color.RED);
+    	g.fillRect(150 * getLane() + 50, getY() - 50, 50, 100);
 	}
 }

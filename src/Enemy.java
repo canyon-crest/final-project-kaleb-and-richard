@@ -6,11 +6,13 @@ public class Enemy extends Entity {
 	private boolean alive;
 	private int laneChangeCdMax;
 	private int laneChangeCd;
+	private double laneChangeChance;
 	
-	public Enemy(int speed, int cd) {
+	public Enemy(int speed, int cd, double chance) {
 		super((int)(Math.random()*3),0, speed);
 		laneChangeCdMax = cd;
-		laneChangeCd = (int)(Math.random() * laneChangeCdMax * 0.5);
+		laneChangeCd = (int)(Math.random() * laneChangeCdMax);
+		laneChangeChance = chance;
 		alive = true;
 	}
 	
@@ -55,8 +57,11 @@ public class Enemy extends Entity {
 		{
 			if (laneChangeCd >= laneChangeCdMax)
 			{
-				laneChangeCd = (int)(Math.random() * laneChangeCdMax * 0.5);;
-				changeLane(p);
+				laneChangeCd = (int)(Math.random() * laneChangeCdMax * 0.5);
+				if (Math.random() < laneChangeChance)
+				{
+					changeLane(p);
+				}
 			}
 			else
 			{

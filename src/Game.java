@@ -19,6 +19,14 @@ public class Game implements KeyListener {
 	private Player player;
 	private ArrayList<Entity> entities;
 	
+	private int spawnEnemyCd;
+	private int spawnEnemyCdMax;
+	private double spawnEnemyChance;
+	
+	private int spawnPowerupCd;
+	private int spawnPowerupCdMax;
+	private double spawnPowerupChance;
+	
 	public static void main(String[] args) {
 		new Game().run();
 	}
@@ -40,6 +48,31 @@ public class Game implements KeyListener {
 	
 	private void update() {
 		// TODO Auto-generated method stub
+		if (spawnEnemyCd >= spawnEnemyCdMax)
+		{
+			if (Math.random() < spawnEnemyChance)
+			{
+				spawnEnemyCd = 0;
+				spawnEnemy();
+			}
+		}
+		else
+		{
+			spawnEnemyCd += 1000/Game.FPS;
+		}
+		if (spawnPowerupCd >= spawnPowerupCdMax)
+		{
+			if (Math.random() < spawnPowerupChance)
+			{
+				spawnPowerupCd = 0;
+				spawnPowerup();
+			}
+		}
+		else
+		{
+			spawnPowerupCd += 1000/Game.FPS;
+		}
+		
 		for (Entity e : entities)
 		{
 			e.update(player);
@@ -49,10 +82,17 @@ public class Game implements KeyListener {
 
 	public void startGame()
 	{
+		spawnEnemyCd = 0;
+		spawnEnemyCdMax = 2000;
+		spawnEnemyChance = 0.5;
+
+		spawnPowerupCd = 0;
+		spawnPowerupCdMax = 5000;
+		spawnPowerupChance = 0.1;
+		
 		String name = JOptionPane.showInputDialog("Input a name:");
-		player = new Player(1, HEIGHT - 100, 1, 10, name);
+		player = new Player(1, HEIGHT - 100, 1, 30, name);
 		entities = new ArrayList<Entity>();
-		entities.add(new Enemy(8, 1000)); //placeholder enemy
 		update();
 		timer.start();
 	}
@@ -77,5 +117,16 @@ public class Game implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	
+	public void spawnEnemy()
+	{
+		entities.add(new Enemy((int)(player.getSpeed() * 0.75), 1000, 0.5));
+	}
+	public void spawnPowerup()
+	{
+		entities.add(new Powerup("placeholder", "placeholder"));
 	}
 }

@@ -15,7 +15,9 @@ public class Player extends Entity {
     }
     
     public void addPowerUp(Powerup p) {
-    	powerUps.add(p);
+    	if (!(p.getName().equals("Gun"))) {
+    		powerUps.add(p);
+    	}
     }
     
     public void removePowerUp(Powerup p) {
@@ -48,6 +50,14 @@ public class Player extends Entity {
     	health = hp;
     }
     
+    public void applyPowerUps() { // TODO: call this function every game update
+    	for (Powerup i : powerUps) {
+    		i.apply(this);
+    		if (i.isPickedUp()) {
+    			this.removePowerUp(i);
+    		}
+    	}
+    }
     
     
     public void draw(Graphics g)

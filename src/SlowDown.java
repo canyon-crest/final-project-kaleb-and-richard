@@ -9,4 +9,11 @@ public class SlowDown extends Powerup {
 			p.setSpeed(p.getSpeed() - s);
 		}
 	}
+	
+	public void apply(Player p) {
+		if (super.pickedUp) {
+			this.reduceSpeed(p, (int)(Math.random()*15)+1);
+		}
+		super.pickedUp = false;
+	}
 }

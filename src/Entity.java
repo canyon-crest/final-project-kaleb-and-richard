@@ -75,7 +75,7 @@ public class Entity {
 	}
 	
 	public void move(Player p) { // increment yPos by speed every x amount of time
-		yPos += (p.getSpeed() - getSpeed()) * (100.0/Game.FPS);
+		yPos += (p.getSpeed() - getSpeed()) * (50.0/Game.FPS);
 //		while (p.getHealth() != 0) {
 //			try {
 //				Thread.sleep(1000/24);

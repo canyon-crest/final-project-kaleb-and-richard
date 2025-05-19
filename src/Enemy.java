@@ -23,25 +23,27 @@ public class Enemy extends Entity {
 	}
 	
 	public void changeLane(Player p) {
-		if (Math.abs(getY() - p.getY()) < 150)
-			return;
-		int lane = getLane();
-		if (lane == 0)
-		{
-			lane += 1;
-		}
-		else if (lane == 2)
-		{
-			lane -= 1;
-		}
-		else
-		{
-			if (Math.random() < 0.5)
-				lane -= 1;
-			else
+		if (alive) {
+			if (Math.abs(getY() - p.getY()) < 150)
+				return;
+			int lane = getLane();
+			if (lane == 0)
+			{
 				lane += 1;
+			}
+			else if (lane == 2)
+			{
+				lane -= 1;
+			}
+			else
+			{
+				if (Math.random() < 0.5)
+					lane -= 1;
+				else
+					lane += 1;
+			}
+			super.setLane(lane);
 		}
-		super.setLane(lane);
 	}
 	
 	
@@ -66,6 +68,8 @@ public class Enemy extends Entity {
 		{
 			//player loses a life
 			//enemy is destroyed
+			p.removeHealth(1);
+			this.die();
 		}
 	}
 	

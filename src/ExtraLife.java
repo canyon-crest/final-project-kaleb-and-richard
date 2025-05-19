@@ -6,4 +6,11 @@ public class ExtraLife extends Powerup {
 	public void addLife(Player p) {
 		p.addHealth(1/*max damage*/);
 	}
+	
+	public void apply(Player p) {
+		if (super.pickedUp) {
+			this.addLife(p);
+		}
+		super.pickedUp = false;
+	}
 }

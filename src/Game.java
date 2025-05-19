@@ -10,7 +10,7 @@ import javax.swing.Timer;
 public class Game implements KeyListener {
 	public static final int WIDTH = 450;
 	public static final int HEIGHT = 600;
-	public static final int FPS = 60;
+	public static final int FPS = 30;
 	
 	private JFrame frame;
 	private GamePanel panel;
@@ -42,9 +42,9 @@ public class Game implements KeyListener {
 		// TODO Auto-generated method stub
 		for (Entity e : entities)
 		{
-			e.move(player);
+			e.update(player);
 		}
-		panel.repaint(player, entities);
+		panel.update(panel.getGraphics(), player, entities);
 	}
 
 	public void startGame()
@@ -52,7 +52,7 @@ public class Game implements KeyListener {
 		String name = JOptionPane.showInputDialog("Input a name:");
 		player = new Player(1, HEIGHT - 100, 1, 10, name);
 		entities = new ArrayList<Entity>();
-		entities.add(new Enemy(5, 3, 1.0));
+		entities.add(new Enemy(8, 1000)); //placeholder enemy
 		update();
 		timer.start();
 	}

@@ -11,9 +11,14 @@ public class GamePanel extends JPanel {
 	{
 		font = new Font("Arial", Font.PLAIN, 16);
 	}
-	public void repaint(Player player, ArrayList<Entity> entities)
+	
+	public void update(Graphics g, Player player, ArrayList<Entity> entities)
 	{
-		paintComponent(getGraphics(), player, entities);
+		repaint(g, player, entities);
+	}
+	public void repaint(Graphics g, Player player, ArrayList<Entity> entities)
+	{
+		paintComponent(g, player, entities);
 	}
 	public void paintComponent(Graphics g, Player player, ArrayList<Entity> entities)
 	{

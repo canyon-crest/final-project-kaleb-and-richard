@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Powerup extends Entity {
 	private String name;
 	private String description;
@@ -14,5 +17,20 @@ public class Powerup extends Entity {
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public void update(Player p)
+	{
+		super.update(p);
+		if (isTouching(p))
+		{
+			//player picks up upgrade
+		}
+	}
+	
+	public void draw(Graphics g)
+	{
+		g.setColor(Color.WHITE);
+    	g.fillRect(150 * getLane() + 50, getY() - 25, 50, 50);
 	}
 }

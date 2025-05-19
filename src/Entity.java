@@ -7,7 +7,7 @@ public class Entity {
 	public static int maxSpeed;
 	private boolean isDestroyed = false;
 	public static int accelRate;
-	private int speed;
+	private int speed; //meters per second
 	
 	public Entity(int startLane, int startY, int startSpeed) {
 		lane = startLane;
@@ -16,7 +16,7 @@ public class Entity {
 	}
 	
 	public boolean isTouching(Entity other) {
-		if (other.lane == this.lane && Math.abs(other.yPos - this.yPos) < 10) {
+		if (other.lane == this.lane && Math.abs(other.yPos - this.yPos) < 100) {
 			return true;
 		}
 		else {
@@ -75,7 +75,7 @@ public class Entity {
 	}
 	
 	public void move(Player p) { // increment yPos by speed every x amount of time
-		yPos += p.getSpeed() - getSpeed();
+		yPos += (p.getSpeed() - getSpeed()) * (100.0/Game.FPS);
 //		while (p.getHealth() != 0) {
 //			try {
 //				Thread.sleep(1000/24);
@@ -88,6 +88,11 @@ public class Entity {
 	}
 	
 	
+	
+	public void update(Player p)
+	{
+		move(p);
+	}
 	
 	public void draw(Graphics g)
     {

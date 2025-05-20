@@ -40,7 +40,7 @@ public class Entity {
 		maxSpeed = newLimit;
 	}
 	
-	public static void changeAccelRate(int newRate) { // change acceleration based on difficulty level
+	public static void changeAccelRate(int newRate) {
 		accelRate = newRate;
 	}
 	

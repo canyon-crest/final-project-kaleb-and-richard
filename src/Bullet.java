@@ -1,6 +1,8 @@
 public class Bullet extends Entity {
 	public Bullet(Player p) {
 		super(p.getLane(),p.getY(),50);
+		Game game = new Game();
+		game.addEntity(this);
 	}
 	
 

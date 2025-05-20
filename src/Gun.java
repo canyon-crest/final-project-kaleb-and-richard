@@ -7,10 +7,11 @@ public class Gun extends Powerup {
 		this.ammo = ammoAmt;
 	}
 	
-	public void shoot(Enemy c) {
+	public void shoot() {
 		if (totalAmmo > 0) {
 			totalAmmo--;
-			c.die();
+			Bullet bullet = new Bullet(Game.getPlayer());
+			bullet.update(Game.getPlayer());
 			// car that gets shot can no longer change lanes
 		}
 	}

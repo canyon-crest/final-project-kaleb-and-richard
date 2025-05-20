@@ -16,8 +16,8 @@ public class Game implements KeyListener {
 	private GamePanel panel;
 	private Timer timer;
 	
-	private Player player;
-	private ArrayList<Entity> entities;
+	private static Player player;
+	private static ArrayList<Entity> entities;
 	
 	private int spawnEnemyCd;
 	private int spawnEnemyCdMax;
@@ -44,6 +44,25 @@ public class Game implements KeyListener {
 		timer = new Timer(1000/FPS, (e) -> update());
 		
 		startGame();
+	}
+
+	public void startGame()
+	{
+		spawnEnemyCd = 0;
+		spawnEnemyCdMax = 2000;
+		spawnEnemyChance = 0.5;
+
+		spawnPowerupCd = 0;
+		spawnPowerupCdMax = 5000;
+		spawnPowerupChance = 0.1;
+		
+		String name = JOptionPane.showInputDialog("Input a name:");
+		player = new Player(1, HEIGHT - 100, 1, 10, name);
+		player.changeAccelRate(10000);
+		player.changeMaxSpeed(30);
+		entities = new ArrayList<Entity>();
+		update();
+		timer.start();
 	}
 	
 	private void update() {
@@ -77,24 +96,8 @@ public class Game implements KeyListener {
 		{
 			e.update(player);
 		}
-		panel.update(panel.getGraphics(), player, entities);
-	}
-
-	public void startGame()
-	{
-		spawnEnemyCd = 0;
-		spawnEnemyCdMax = 2000;
-		spawnEnemyChance = 0.5;
-
-		spawnPowerupCd = 0;
-		spawnPowerupCdMax = 5000;
-		spawnPowerupChance = 0.1;
 		
-		String name = JOptionPane.showInputDialog("Input a name:");
-		player = new Player(1, HEIGHT - 100, 1, 30, name);
-		entities = new ArrayList<Entity>();
-		update();
-		timer.start();
+		panel.update(panel.getGraphics(), player, entities);
 	}
 
 	@Override
@@ -123,10 +126,24 @@ public class Game implements KeyListener {
 	
 	public void spawnEnemy()
 	{
-		entities.add(new Enemy((int)(player.getSpeed() * 0.75), 1000, 0.5));
+		addEntity(new Enemy((int)(player.getSpeed() * 0.75), 10000/player.getSpeed(), 0.5));
 	}
 	public void spawnPowerup()
 	{
-		entities.add(new Powerup("placeholder", "placeholder"));
+		addEntity(new Powerup("placeholder", "placeholder"));
+	}
+	
+	public static Player getPlayer()
+	{
+		return player;
+	}
+	public static ArrayList<Entity> getEntities()
+	{
+		return entities;
+	}
+	
+	public static void addEntity(Entity e)
+	{
+		entities.add(e);
 	}
 }

@@ -4,15 +4,29 @@ import java.awt.Graphics;
 public class Entity {
 	private int lane;
 	private int yPos;
-	public static int maxSpeed;
+	private int maxSpeed;
 	private boolean isDestroyed = false;
-	public static int accelRate;
+	private int accel;
+	private int accelCd;
+	private int accelRate;
 	private int speed; //meters per second
 	
 	public Entity(int startLane, int startY, int startSpeed) {
 		lane = startLane;
 		yPos = startY;
 		speed = startSpeed;
+		accel = 0;
+		accelCd = 0;
+		accelRate = 10000;
+	}
+	
+	public Entity(int startLane, int startY, int startSpeed, int accel, int accelRate) {
+		lane = startLane;
+		yPos = startY;
+		speed = startSpeed;
+		this.accel = accel;
+		this.accelCd = 0;
+		this.accelRate = accelRate;
 	}
 	
 	public boolean isTouching(Entity other) {
@@ -24,23 +38,23 @@ public class Entity {
 		}
 	}
 	
-	private void accelerate(Player p) { // increment speed by 5 every accelRate seconds
-		while(p.getHealth() != 0) {
-			try {
-				Thread.sleep(accelRate*1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			speed += 5;
+	private void accelerate() { // increment speed by 5 every accelRate seconds
+		if (accelCd >= accelRate)
+		{
+			speed += accel;
+			accelCd = 0;
+		}
+		else
+		{
+			accelCd += 1000/Game.FPS;
 		}
 	}
 	
-	public static void changeMaxSpeed(int newLimit) { // change max speed based on difficulty level
+	public void changeMaxSpeed(int newLimit) { // change max speed based on difficulty level
 		maxSpeed = newLimit;
 	}
 	
-	public static void changeAccelRate(int newRate) { // change acceleration based on difficulty level
+	public void changeAccelRate(int newRate) { // change acceleration based on difficulty level
 		accelRate = newRate;
 	}
 	

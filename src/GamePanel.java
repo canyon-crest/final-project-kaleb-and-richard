@@ -27,13 +27,12 @@ public class GamePanel extends JPanel {
 		g.setColor(new Color(200, 200, 200));
 		g.fillRect(149, 0, 2, Game.HEIGHT);
 		g.fillRect(299, 0, 2, Game.HEIGHT);
-		g.fillRect(449, 0, 2, Game.HEIGHT);
 		
-		player.draw(g);
 		for (Entity e : entities)
 		{
 			e.draw(g);
 		}
+		player.draw(g);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(font);

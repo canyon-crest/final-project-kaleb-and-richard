@@ -7,10 +7,11 @@ public class Gun extends Powerup {
 		this.ammo = ammoAmt;
 	}
 	
-	public void shoot(Enemy c) {
+	public void shoot() {
 		if (totalAmmo > 0) {
 			totalAmmo--;
-			c.die();
+			Bullet bullet = new Bullet(Game.getPlayer());
+			bullet.update(Game.getPlayer());
 			// car that gets shot can no longer change lanes
 		}
 	}
@@ -21,5 +22,11 @@ public class Gun extends Powerup {
 	
 	public void getAmmo(Player p) { // if player already has a gun and picks up another gun powerup then just get additional ammo
 		totalAmmo += ammo;
+	}
+	
+	public void apply(Player p) {
+		if (super.pickedUp) {
+			// add gun (construct it with Random ammoAmt) to powerUps ArrayList and increase totalAmmo
+		}
 	}
 }

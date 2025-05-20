@@ -23,4 +23,10 @@ public class Gun extends Powerup {
 	public void getAmmo(Player p) { // if player already has a gun and picks up another gun powerup then just get additional ammo
 		totalAmmo += ammo;
 	}
+	
+	public void apply(Player p) {
+		if (super.pickedUp) {
+			// add gun (construct it with Random ammoAmt) to powerUps ArrayList and increase totalAmmo
+		}
+	}
 }

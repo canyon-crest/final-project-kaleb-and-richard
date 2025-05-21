@@ -1,16 +1,13 @@
 public class Bullet extends Entity {
-	public Bullet(Player p) {
-		super(p.getLane(),p.getY(),50);
-		Game game = new Game();
-		game.addEntity(this);
+	public Bullet(Game game, int speed) {
+		super(game, game.getPlayer().getLane(), game.getPlayer().getY(), game.getPlayer().getSpeed() + speed);
 	}
 	
 
-	public void update(Player p)
+	public void update(Game g)
 	{
-		Game game = new Game();
-		super.update(p);
-		for (Entity i : game.getEntities()) {
+		super.update(g);
+		for (Entity i : getGame().getEntities()) {
 			if (isTouching(i) && i instanceof Enemy) {
 				((Enemy)i).die();
 			}

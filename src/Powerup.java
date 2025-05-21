@@ -6,8 +6,8 @@ public class Powerup extends Entity {
 	private String description;
 	protected boolean pickedUp = false;
 	
-	public Powerup(String name, String description) {
-		super((int)(Math.random()*3), 0, 0);
+	public Powerup(Game game, String name, String description) {
+		super(game, (int)(Math.random()*3), 0, 0);
 		this.name = name;
 		this.description = description;
 	}
@@ -20,15 +20,16 @@ public class Powerup extends Entity {
 		return description;
 	}
 	
-	public void update(Player p)
+	public void update(Game g)
 	{
-		super.update(p);
+		Player p = g.getPlayer();
+		super.update(g);
 		if (isTouching(p))
 		{
 			//player picks up upgrade
 			p.addPowerUp(this);
 			pickedUp = true;
-			Game.deleteEntity(this);
+			delete();
 		}
 	}
 	

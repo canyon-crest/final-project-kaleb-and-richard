@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Entity {
+	private Game parentGame;
+	private boolean deleted;
 	private int lane;
 	private int yPos;
 	private int maxSpeed;
@@ -11,7 +13,8 @@ public class Entity {
 	private int accelRate;
 	private int speed; //meters per second
 	
-	public Entity(int startLane, int startY, int startSpeed) {
+	public Entity(Game game, int startLane, int startY, int startSpeed) {
+		parentGame = game;
 		lane = startLane;
 		yPos = startY;
 		speed = startSpeed;
@@ -103,12 +106,26 @@ public class Entity {
 	
 	
 	
-	public void update(Player p)
+	public void update(Game g)
 	{
+		Player p = g.getPlayer();
 		move(p);
 		if (yPos > Game.HEIGHT) {
-			Game.deleteEntity(this);
+			delete();
 		}
+	}
+	
+	public void delete()
+	{
+		deleted = true;
+	}
+	public boolean isDeleted() 
+	{
+		return deleted;
+	}
+	public Game getGame()
+	{
+		return parentGame;
 	}
 	
 	public void draw(Graphics g)

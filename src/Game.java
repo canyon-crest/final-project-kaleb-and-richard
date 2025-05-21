@@ -16,8 +16,8 @@ public class Game implements KeyListener {
 	private GamePanel panel;
 	private Timer timer;
 	
-	private static Player player;
-	private static ArrayList<Entity> entities;
+	private Player player;
+	private ArrayList<Entity> entities;
 	
 	private int spawnEnemyCd;
 	private int spawnEnemyCdMax;
@@ -34,7 +34,7 @@ public class Game implements KeyListener {
 	public void run()
 	{
 		frame = new JFrame();
-		panel = new GamePanel();
+		panel = new GamePanel(this);
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -50,14 +50,14 @@ public class Game implements KeyListener {
 	{
 		spawnEnemyCd = 0;
 		spawnEnemyCdMax = 2000;
-		spawnEnemyChance = 0.5;
+		spawnEnemyChance = 0.8;
 
 		spawnPowerupCd = 0;
 		spawnPowerupCdMax = 5000;
 		spawnPowerupChance = 0.1;
 		
 		String name = JOptionPane.showInputDialog("Input a name:");
-		player = new Player(1, HEIGHT - 100, 1, 10, name);
+		player = new Player(this, 1, HEIGHT - 100, 1, 10, name);
 		player.changeAccelRate(10000);
 		player.changeMaxSpeed(30);
 		entities = new ArrayList<Entity>();
@@ -69,9 +69,9 @@ public class Game implements KeyListener {
 		// TODO Auto-generated method stub
 		if (spawnEnemyCd >= spawnEnemyCdMax)
 		{
+			spawnEnemyCd = 0;
 			if (Math.random() < spawnEnemyChance)
 			{
-				spawnEnemyCd = 0;
 				spawnEnemy();
 			}
 		}
@@ -81,9 +81,9 @@ public class Game implements KeyListener {
 		}
 		if (spawnPowerupCd >= spawnPowerupCdMax)
 		{
+			spawnPowerupCd = 0;
 			if (Math.random() < spawnPowerupChance)
 			{
-				spawnPowerupCd = 0;
 				spawnPowerup();
 			}
 		}
@@ -92,12 +92,15 @@ public class Game implements KeyListener {
 			spawnPowerupCd += 1000/Game.FPS;
 		}
 		
-		for (Entity e : entities)
+		for (int i = entities.size() - 1; i >= 0; i--)
 		{
-			e.update(player);
+			if (entities.get(i).isDeleted())
+				entities.remove(i);
+			else
+				entities.get(i).update(this);
 		}
 		
-		panel.update(panel.getGraphics(), player, entities);
+		panel.update(panel.getGraphics());
 	}
 
 	@Override
@@ -133,24 +136,24 @@ public class Game implements KeyListener {
 	
 	public void spawnEnemy()
 	{
-		addEntity(new Enemy((int)(player.getSpeed() * 0.75), 10000/player.getSpeed(), 0.5));
+		addEntity(new Enemy(this, (int)(player.getSpeed() * 0.75), 10000/player.getSpeed(), 0.5));
 	}
 	public void spawnPowerup()
 	{
-		addEntity(new Powerup("placeholder", "placeholder"));
+		addEntity(new Powerup(this, "placeholder", "placeholder"));
 	}
 	
-	public static Player getPlayer()
+	public Player getPlayer()
 	{
 		return player;
 	}
-	public static ArrayList<Entity> getEntities()
+	public ArrayList<Entity> getEntities()
 	{
 		return entities;
 	}
 	
-	public static void addEntity(Entity e)
+	public void addEntity(Entity e)
 	{
-		entities.add(e);
+		entities.add(0, e);
 	}
 }

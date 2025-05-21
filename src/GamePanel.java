@@ -7,20 +7,22 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
 	private Font font;
-	public GamePanel()
+	private Game game;
+	public GamePanel(Game game)
 	{
 		font = new Font("Arial", Font.PLAIN, 16);
+		this.game = game;
 	}
 	
-	public void update(Graphics g, Player player, ArrayList<Entity> entities)
+	public void update(Graphics g)
 	{
-		repaint(g, player, entities);
+		repaint(g);
 	}
-	public void repaint(Graphics g, Player player, ArrayList<Entity> entities)
+	public void repaint(Graphics g)
 	{
-		paintComponent(g, player, entities);
+		paintComponent(g);
 	}
-	public void paintComponent(Graphics g, Player player, ArrayList<Entity> entities)
+	public void paintComponent(Graphics g)
 	{
 		g.setColor(new Color(100, 100, 100));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
@@ -28,11 +30,13 @@ public class GamePanel extends JPanel {
 		g.fillRect(149, 0, 2, Game.HEIGHT);
 		g.fillRect(299, 0, 2, Game.HEIGHT);
 		
-		for (Entity e : entities)
+		if (game.getEntities() == null || game.getEntities() == null)
+			return;
+		for (Entity e : game.getEntities())
 		{
 			e.draw(g);
 		}
-		player.draw(g);
+		game.getPlayer().draw(g);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(font);

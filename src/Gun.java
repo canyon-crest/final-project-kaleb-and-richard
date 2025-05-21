@@ -2,16 +2,16 @@ public class Gun extends Powerup {
 	private int ammo;
 	public static int totalAmmo = 0;
 	
-	public Gun(int ammoAmt, String name, String description) {
-		super(name, description);
+	public Gun(Game game, int ammoAmt, String name, String description) {
+		super(game, name, description);
 		this.ammo = ammoAmt;
 	}
 	
 	public void shoot() {
 		if (totalAmmo > 0) {
 			totalAmmo--;
-			Bullet bullet = new Bullet(Game.getPlayer());
-			bullet.update(Game.getPlayer());
+			Bullet bullet = new Bullet(getGame(), 10);
+			bullet.update(getGame());
 			// car that gets shot can no longer change lanes
 		}
 	}

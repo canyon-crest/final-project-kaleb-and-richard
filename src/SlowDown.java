@@ -1,6 +1,6 @@
 public class SlowDown extends Powerup {	
-	public SlowDown(String name, String description) {
-		super(name, description);
+	public SlowDown(Game game, String name, String description) {
+		super(game, name, description);
 		// TODO Auto-generated constructor stub
 	}
 

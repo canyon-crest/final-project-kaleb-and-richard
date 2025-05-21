@@ -7,8 +7,8 @@ public class Player extends Entity {
     private String name;
     private static ArrayList<Powerup> powerUps;
     
-    public Player(int lane, int ypos, int hp, int s, String str) {
-    	super(lane, ypos, s);
+    public Player(Game game, int lane, int ypos, int hp, int s, String str) {
+    	super(game, lane, ypos, s);
     	health = hp;
     	name = str;
     	powerUps = new ArrayList<Powerup>();

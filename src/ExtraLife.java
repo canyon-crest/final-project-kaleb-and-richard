@@ -1,6 +1,6 @@
 public class ExtraLife extends Powerup {
-	public ExtraLife(String name, String description) {
-		super(name, description);
+	public ExtraLife(Game game, String name, String description) {
+		super(game, name, description);
 	}
 
 	public void addLife(Player p) {

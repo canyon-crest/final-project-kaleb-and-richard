@@ -8,8 +8,8 @@ public class Enemy extends Entity {
 	private int laneChangeCd;
 	private double laneChangeChance;
 	
-	public Enemy(int speed, int cd, double chance) {
-		super((int)(Math.random()*3),0, speed);
+	public Enemy(Game game, int speed, int cd, double chance) {
+		super(game, (int)(Math.random()*3),0, speed);
 		laneChangeCdMax = cd;
 		laneChangeCd = (int)(Math.random() * laneChangeCdMax);
 		laneChangeChance = chance;
@@ -51,8 +51,9 @@ public class Enemy extends Entity {
 	
 	
 	
-	public void update(Player p)
+	public void update(Game g)
 	{
+		Player p = g.getPlayer();
 		if(alive)
 		{
 			if (laneChangeCd >= laneChangeCdMax)
@@ -68,7 +69,7 @@ public class Enemy extends Entity {
 				laneChangeCd += 1000/Game.FPS;
 			}
 		}
-		super.update(p);
+		super.update(g);
 		if (isTouching(p) && alive)
 		{
 			//player loses a life

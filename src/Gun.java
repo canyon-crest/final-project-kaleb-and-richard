@@ -3,7 +3,7 @@ public class Gun extends Powerup {
 	public static int totalAmmo = 0;
 	
 	public Gun(int ammoAmt, String name, String description) {
-		super(name,description);
+		super(name, description);
 		this.ammo = ammoAmt;
 	}
 	
@@ -27,6 +27,19 @@ public class Gun extends Powerup {
 	public void apply(Player p) {
 		if (super.pickedUp) {
 			// add gun (construct it with Random ammoAmt) to powerUps ArrayList and increase totalAmmo
+			boolean alreadyHasGun = false;
+			for (Powerup powerup : p.getPowerups()) {
+				if (powerup instanceof Gun) {
+					((Gun) powerup).ammo += this.ammo;
+					totalAmmo += this.ammo;
+					alreadyHasGun = true;
+					break;
+				}
+			}
+			if (!alreadyHasGun) {
+				p.addPowerUp(this);
+				totalAmmo += this.ammo;
+			}
 		}
 	}
 }

@@ -103,7 +103,14 @@ public class Game implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (e.getKeyChar() == ' ') {
+			for (Powerup p : player.getPowerups()) {
+				if (p instanceof Gun) {
+					((Gun) p).shoot();
+					break;
+				}
+			}
+		}
 	}
 
 	@Override

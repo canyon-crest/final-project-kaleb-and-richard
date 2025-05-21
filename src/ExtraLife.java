@@ -4,7 +4,7 @@ public class ExtraLife extends Powerup {
 	}
 
 	public void addLife(Player p) {
-		p.addHealth(1/*max damage*/);
+		p.addHealth(1);
 	}
 	
 	public void apply(Player p) {

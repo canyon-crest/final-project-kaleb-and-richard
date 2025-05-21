@@ -32,7 +32,7 @@ public class Powerup extends Entity {
 	}
 	
 	public void apply(Player p) {
-		//
+		
 	}
 	
 	public boolean isPickedUp() {

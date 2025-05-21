@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player extends Entity {
     private int health;
     private String name;
-    private ArrayList<Powerup> powerUps;
+    private static ArrayList<Powerup> powerUps;
     
     public Player(int lane, int ypos, int hp, int s, String str) {
     	super(lane, ypos, s);
@@ -29,7 +29,7 @@ public class Player extends Entity {
     	}
     }
     
-    public ArrayList<Powerup> getPowerups()
+    public static ArrayList<Powerup> getPowerups()
     {
     	return powerUps;
     }

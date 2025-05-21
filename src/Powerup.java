@@ -28,6 +28,7 @@ public class Powerup extends Entity {
 			//player picks up upgrade
 			p.addPowerUp(this);
 			pickedUp = true;
+			Game.deleteEntity(this);
 		}
 	}
 	

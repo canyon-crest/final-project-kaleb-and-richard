@@ -106,6 +106,9 @@ public class Entity {
 	public void update(Player p)
 	{
 		move(p);
+		if (yPos > Game.HEIGHT) {
+			Game.deleteEntity(this);
+		}
 	}
 	
 	public void draw(Graphics g)

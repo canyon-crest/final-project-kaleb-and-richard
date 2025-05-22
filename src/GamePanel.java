@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel { // displays the game
 	private Font font;
 	private Game game;
 	public GamePanel(Game game)

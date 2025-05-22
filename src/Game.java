@@ -31,7 +31,7 @@ public class Game implements KeyListener {
 	private int scoreCd;
 	
 	public static void main(String[] args) {
-		new Game().run();
+		new Game().run(); // runs the game
 	}
 	
 	public void run()
@@ -51,14 +51,17 @@ public class Game implements KeyListener {
 
 	public void startGame()
 	{
+		//initiate the variables/stats for the enemies
 		spawnEnemyCd = 0;
 		spawnEnemyCdMax = 2000;
 		spawnEnemyChance = 0.8;
-
+		
+		//initiate the variables/stats for the powerups
 		spawnPowerupCd = 0;
 		spawnPowerupCdMax = 5000;
 		spawnPowerupChance = 0.25;
 		
+		//initiate the variables/stats for the player
 		String name = JOptionPane.showInputDialog("Input a name:");
 		player = new Player(this, 1, HEIGHT - 100, 1, 10, name);
 		player.changeAccelRate(10000);
@@ -73,7 +76,7 @@ public class Game implements KeyListener {
 		spawnEnemyCdMax = (int) (2000 / (player.getSpeed() / 10.0));
 		score();
 		
-		if (spawnEnemyCd >= spawnEnemyCdMax)
+		if (spawnEnemyCd >= spawnEnemyCdMax) //only spawn enemies after cooldown
 		{
 			spawnEnemyCd = 0;
 			if (Math.random() < spawnEnemyChance)
@@ -83,9 +86,9 @@ public class Game implements KeyListener {
 		}
 		else
 		{
-			spawnEnemyCd += 1000/Game.FPS;
+			spawnEnemyCd += 1000/Game.FPS; //if cooldown still active, wait (ie increment time)
 		}
-		if (spawnPowerupCd >= spawnPowerupCdMax)
+		if (spawnPowerupCd >= spawnPowerupCdMax) //only spawn powerups after cooldown
 		{
 			spawnPowerupCd = 0;
 			if (Math.random() < spawnPowerupChance)
@@ -95,7 +98,7 @@ public class Game implements KeyListener {
 		}
 		else
 		{
-			spawnPowerupCd += 1000/Game.FPS;
+			spawnPowerupCd += 1000/Game.FPS; //if cooldown still active, wait (ie increment time)
 		}
 		
 		for (int i = entities.size() - 1; i >= 0; i--)
@@ -111,7 +114,7 @@ public class Game implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e) { // shoot gun when spacebar is pressed
 		// TODO Auto-generated method stub
 		if (e.getKeyChar() == ' ') {
 			for (Powerup p : player.getPowerups()) {
@@ -124,17 +127,21 @@ public class Game implements KeyListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) { //code for the controls
 		// TODO Auto-generated method stub
 		//System.out.println(e.getKeyCode());
-		if (e.getKeyCode() == 68 && player.getLane() < 2)
+		if (e.getKeyCode() == 68 && player.getLane() < 2) // d moves car to the right
 			player.setLane(player.getLane() + 1);
-		if (e.getKeyCode() == 65 && player.getLane() > 0)
+		if (e.getKeyCode() == 65 && player.getLane() > 0) // a moves car to the left
 			player.setLane(player.getLane() - 1);
-		if (e.getKeyCode() == 0)
-			for (Powerup i : player.getPowerups())
-				if (i instanceof Gun)
+		if (e.getKeyCode() == 32) { //spacebar fires gun
+			for (Powerup i : player.getPowerups()) {
+				if (i instanceof Gun) {
 					((Gun)i).shoot();
+					return; // break out of loop after shooting gun once
+				}
+			}
+		}
 	}
 
 	@Override

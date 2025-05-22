@@ -131,6 +131,10 @@ public class Game implements KeyListener {
 			player.setLane(player.getLane() + 1);
 		if (e.getKeyCode() == 65 && player.getLane() > 0)
 			player.setLane(player.getLane() - 1);
+		if (e.getKeyCode() == 0)
+			for (Powerup i : player.getPowerups())
+				if (i instanceof Gun)
+					((Gun)i).shoot();
 	}
 
 	@Override
@@ -147,7 +151,13 @@ public class Game implements KeyListener {
 	}
 	public void spawnPowerup()
 	{
-		addEntity(new Powerup(this, "placeholder", "placeholder"));
+		int rand = (int)(Math.random() * 3);
+		if (rand == 0)
+			addEntity(new ExtraLife(this, "life", "adds health"));
+		else if (rand == 1)
+			addEntity(new SlowDown(this, "slow", "decreases speed"));
+		else if (rand == 2)
+			addEntity(new Gun(this, 3, "gun", "press space to shoot"));
 	}
 	
 	public Player getPlayer()

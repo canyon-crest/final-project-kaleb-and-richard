@@ -1,11 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 public class Player extends Entity {
+	private BufferedImage image;
     private int health;
     private String name;
-    private static ArrayList<Powerup> powerUps;
+    private ArrayList<Powerup> powerUps;
     
     /*
      * @param lane: lane where player starts
@@ -16,6 +22,12 @@ public class Player extends Entity {
      */
     public Player(Game game, int lane, int ypos, int hp, int s, String str) {
     	super(game, lane, ypos, s, 1, 10000);
+    	try {
+			image = ImageIO.read(new File("images/player_car.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	health = hp;
     	name = str;
     	powerUps = new ArrayList<Powerup>();
@@ -37,7 +49,7 @@ public class Player extends Entity {
     }
     
     //@return returns all powerups currently in affect in an arraylist
-    public static ArrayList<Powerup> getPowerups()
+    public ArrayList<Powerup> getPowerups()
     {
     	return powerUps;
     }
@@ -76,7 +88,8 @@ public class Player extends Entity {
     }
     public void draw(Graphics g)
     {
-    	g.setColor(Color.BLUE);
-    	g.fillRect(150 * getLane() + 50, getY() - 50, 50, 100);
+//    	g.setColor(Color.BLUE);
+//    	g.fillRect(150 * getLane() + 50, getY() - 50, 50, 100);
+    	g.drawImage(image, 150 * getLane() + 75 - 78, getY() - 75, 150, 150, null);
     }
 }

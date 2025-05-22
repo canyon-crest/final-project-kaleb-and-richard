@@ -13,6 +13,12 @@ public class Entity {
 	private int accelRate;
 	private int speed; //meters per second
 	
+	/*
+	* @param game: game object
+	* @param startLane: lane where entity will spawn
+	* @param startY: y-coord where entity will spawn
+	* @param startSpeed: speed at which entity starts moving at
+	*/
 	public Entity(Game game, int startLane, int startY, int startSpeed) {
 		parentGame = game;
 		lane = startLane;
@@ -24,6 +30,10 @@ public class Entity {
 		maxSpeed = 30;
 	}
 	
+	/*
+	 * @param accel: amount by which the player's speed will increase
+	 * @param accelRate: rate at which the player's speed will increase
+	*/
 	public Entity(Game game, int startLane, int startY, int startSpeed, int accel, int accelRate) {
 		lane = startLane;
 		yPos = startY;
@@ -34,6 +44,9 @@ public class Entity {
 		maxSpeed = 30;
 	}
 	
+	/*
+	 * @return returns whether or not this is touching other
+	 */
 	public boolean isTouching(Entity other) {
 		if (other.lane == this.lane && Math.abs(other.yPos - this.yPos) < 50) {
 			return true;

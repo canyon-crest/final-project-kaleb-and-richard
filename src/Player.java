@@ -7,6 +7,13 @@ public class Player extends Entity {
     private String name;
     private static ArrayList<Powerup> powerUps;
     
+    /*
+     * @param lane: lane where player starts
+     * @param ypos: position where the player plays from
+     * @param hp: the amount of hp the player starts with
+     * @param s: the speed the player starts at
+     * @param str: player name
+     */
     public Player(Game game, int lane, int ypos, int hp, int s, String str) {
     	super(game, lane, ypos, s, 1, 10000);
     	health = hp;
@@ -14,13 +21,13 @@ public class Player extends Entity {
     	powerUps = new ArrayList<Powerup>();
     }
     
-    public void addPowerUp(Powerup p) {
+    public void addPowerUp(Powerup p) { // this method is called to add a powerup to the player every time player picks up a powerup
     	if (!(p.getName().equals("Gun"))) {
     		powerUps.add(p);
     	}
     }
     
-    public void removePowerUp(Powerup p) {
+    public void removePowerUp(Powerup p) { // once powerup effect has been applied the powerup is removed from the player
     	for (int i = 0; i < powerUps.size(); i++) {
     		if (powerUps.get(i).equals(p)) {
     			powerUps.remove(i);
@@ -29,6 +36,7 @@ public class Player extends Entity {
     	}
     }
     
+    //@return returns all powerups currently in affect in an arraylist
     public static ArrayList<Powerup> getPowerups()
     {
     	return powerUps;
@@ -50,20 +58,21 @@ public class Player extends Entity {
     	health = hp;
     }
     
-    public void applyPowerUps() { // TODO: call this function every game update
-    	for (Powerup i : powerUps) {
-    		i.apply(this);
-    		if (i.isPickedUp()) {
-    			this.removePowerUp(i);
+    public void applyPowerUps() { // loops thru powerUps and applies the powerups that are not in effect, and then removes ones that are in effect already
+    	for (int i = powerUps.size()-1; i>=0; i--) {
+    		powerUps.get(i).apply(this);
+    		if (powerUps.get(i).isPickedUp()) {
+    			this.removePowerUp(powerUps.get(i));
     		}
     	}
     }
     
     
-    
+    @Override
     public void update()
     {
     	accelerate();
+    	applyPowerUps();
     }
     public void draw(Graphics g)
     {

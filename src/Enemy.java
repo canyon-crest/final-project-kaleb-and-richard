@@ -8,6 +8,10 @@ public class Enemy extends Entity {
 	private int laneChangeCd;
 	private double laneChangeChance;
 	
+	/*
+	 * @param cd: cooldown, ie how often enemy cars change lanes
+	 * @param chance: probability that a car will change lanes after cooldown
+	 */
 	public Enemy(Game game, int speed, int cd, double chance) {
 		super(game, (int)(Math.random()*3),0, speed);
 		laneChangeCdMax = cd;
@@ -16,7 +20,7 @@ public class Enemy extends Entity {
 		alive = true;
 	}
 	
-	public void removeHealth(Player player) {
+	public void removeHealth(Player player) { // removes 1hp from player after crashing
 		player.removeHealth(1);
 	}
 	
@@ -25,8 +29,8 @@ public class Enemy extends Entity {
 	}
 	
 	public void changeLane(Player p) {
-		if (alive) {
-			if (Math.abs(getY() - p.getY()) < 150)
+		if (alive) { // if enemy is dead (aka been shot by player) the car can no longer change lanes
+			if (Math.abs(getY() - p.getY()) < 150) // only change lanes if the enemy has not crashed into the player
 				return;
 			int lane = getLane();
 			if (lane == 0)
@@ -50,7 +54,7 @@ public class Enemy extends Entity {
 	
 	
 	
-	
+	@Override
 	public void update()
 	{
 		Player p = getGame().getPlayer();

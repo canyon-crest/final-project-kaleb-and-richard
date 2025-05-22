@@ -10,7 +10,7 @@ public class Gun extends Powerup {
 	public void shoot() {
 		if (totalAmmo > 0) {
 			totalAmmo--;
-			Bullet bullet = new Bullet(getGame(), 10);
+			Bullet bullet = new Bullet(getGame(), 10); // creates new bullet object to shoot
 			bullet.update();
 			// car that gets shot can no longer change lanes
 		}
@@ -25,8 +25,7 @@ public class Gun extends Powerup {
 	}
 	
 	public void apply(Player p) {
-		if (super.pickedUp) {
-			// add gun (construct it with Random ammoAmt) to powerUps ArrayList and increase totalAmmo
+		if (super.pickedUp) { // checks if player already has gun
 			boolean alreadyHasGun = false;
 			for (Powerup powerup : p.getPowerups()) {
 				if (powerup instanceof Gun) {
@@ -36,7 +35,7 @@ public class Gun extends Powerup {
 					break;
 				}
 			}
-			if (!alreadyHasGun) {
+			if (!alreadyHasGun) { // if the player does not have a gun already then add gun to powerup arraylist
 				p.addPowerUp(this);
 				totalAmmo += this.ammo;
 			}

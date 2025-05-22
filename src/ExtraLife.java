@@ -7,7 +7,7 @@ public class ExtraLife extends Powerup {
 		p.addHealth(1);
 	}
 	
-	public void apply(Player p) {
+	public void apply(Player p) { // applies powerup effect to player
 		if (super.pickedUp) {
 			this.addLife(p);
 		}

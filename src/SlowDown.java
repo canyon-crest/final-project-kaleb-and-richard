@@ -1,7 +1,6 @@
 public class SlowDown extends Powerup {	
 	public SlowDown(Game game, String name, String description) {
 		super(game, name, description);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void reduceSpeed(Player p, int s) {

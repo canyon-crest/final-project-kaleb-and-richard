@@ -20,10 +20,10 @@ public class Powerup extends Entity {
 		return description;
 	}
 	
-	public void update(Game g)
+	public void update()
 	{
-		Player p = g.getPlayer();
-		super.update(g);
+		Player p = getGame().getPlayer();
+		super.update();
 		if (isTouching(p))
 		{
 			//player picks up upgrade

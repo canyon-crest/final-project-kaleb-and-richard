@@ -20,20 +20,22 @@ public class Entity {
 		speed = startSpeed;
 		accel = 0;
 		accelCd = 0;
-		accelRate = 10000;
+		accelRate = 1000;
+		maxSpeed = 30;
 	}
 	
-	public Entity(int startLane, int startY, int startSpeed, int accel, int accelRate) {
+	public Entity(Game game, int startLane, int startY, int startSpeed, int accel, int accelRate) {
 		lane = startLane;
 		yPos = startY;
 		speed = startSpeed;
 		this.accel = accel;
 		this.accelCd = 0;
 		this.accelRate = accelRate;
+		maxSpeed = 30;
 	}
 	
 	public boolean isTouching(Entity other) {
-		if (other.lane == this.lane && Math.abs(other.yPos - this.yPos) < 100) {
+		if (other.lane == this.lane && Math.abs(other.yPos - this.yPos) < 50) {
 			return true;
 		}
 		else {
@@ -41,7 +43,11 @@ public class Entity {
 		}
 	}
 	
-	private void accelerate() { // increment speed by 5 every accelRate seconds
+	public void accelerate() { // increment speed by 5 every accelRate seconds
+		if (speed >= maxSpeed)
+		{
+			return;
+		}
 		if (accelCd >= accelRate)
 		{
 			speed += accel;
@@ -59,6 +65,9 @@ public class Entity {
 	
 	public void changeAccelRate(int newRate) { // change acceleration based on difficulty level
 		accelRate = newRate;
+	}
+	public void changeAccel(int newAccel) { // change acceleration based on difficulty level
+		accel = newAccel;
 	}
 	
     public int getSpeed() {
@@ -106,9 +115,10 @@ public class Entity {
 	
 	
 	
-	public void update(Game g)
+	public void update()
 	{
-		Player p = g.getPlayer();
+		Player p = getGame().getPlayer();
+		accelerate();
 		move(p);
 		if (yPos > Game.HEIGHT) {
 			delete();

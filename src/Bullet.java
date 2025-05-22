@@ -4,9 +4,9 @@ public class Bullet extends Entity {
 	}
 	
 
-	public void update(Game g)
+	public void update()
 	{
-		super.update(g);
+		super.update();
 		for (Entity i : getGame().getEntities()) {
 			if (isTouching(i) && i instanceof Enemy) {
 				((Enemy)i).die();

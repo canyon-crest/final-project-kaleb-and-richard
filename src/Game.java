@@ -27,6 +27,9 @@ public class Game implements KeyListener {
 	private int spawnPowerupCdMax;
 	private double spawnPowerupChance;
 	
+	private int score;
+	private int scoreCd;
+	
 	public static void main(String[] args) {
 		new Game().run();
 	}
@@ -54,7 +57,7 @@ public class Game implements KeyListener {
 
 		spawnPowerupCd = 0;
 		spawnPowerupCdMax = 5000;
-		spawnPowerupChance = 0.1;
+		spawnPowerupChance = 0.25;
 		
 		String name = JOptionPane.showInputDialog("Input a name:");
 		player = new Player(this, 1, HEIGHT - 100, 1, 10, name);
@@ -67,6 +70,9 @@ public class Game implements KeyListener {
 	
 	private void update() {
 		// TODO Auto-generated method stub
+		spawnEnemyCdMax = (int) (2000 / (player.getSpeed() / 10.0));
+		score();
+		
 		if (spawnEnemyCd >= spawnEnemyCdMax)
 		{
 			spawnEnemyCd = 0;
@@ -97,8 +103,9 @@ public class Game implements KeyListener {
 			if (entities.get(i).isDeleted())
 				entities.remove(i);
 			else
-				entities.get(i).update(this);
+				entities.get(i).update();
 		}
+		player.update();
 		
 		panel.update(panel.getGraphics());
 	}
@@ -155,5 +162,20 @@ public class Game implements KeyListener {
 	public void addEntity(Entity e)
 	{
 		entities.add(0, e);
+	}
+	
+	public void score()
+	{
+		if (scoreCd > 1000)
+		{
+			scoreCd = 0;
+			score++;
+		}
+		else
+			scoreCd += 1000/FPS;
+	}
+	public int getScore()
+	{
+		return score;
 	}
 }

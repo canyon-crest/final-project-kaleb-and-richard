@@ -51,9 +51,9 @@ public class Enemy extends Entity {
 	
 	
 	
-	public void update(Game g)
+	public void update()
 	{
-		Player p = g.getPlayer();
+		Player p = getGame().getPlayer();
 		if(alive)
 		{
 			if (laneChangeCd >= laneChangeCdMax)
@@ -69,13 +69,15 @@ public class Enemy extends Entity {
 				laneChangeCd += 1000/Game.FPS;
 			}
 		}
-		super.update(g);
+		super.update();
 		if (isTouching(p) && alive)
 		{
 			//player loses a life
 			//enemy is destroyed
 			p.removeHealth(1);
-			this.die();
+			changeAccelRate(-1);
+			
+			die();
 		}
 	}
 	

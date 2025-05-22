@@ -40,6 +40,7 @@ public class GamePanel extends JPanel {
 		
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawString("SCORE: ", 10, 25);
+		g.drawString("SCORE: " + game.getScore(), 10, 25);
+		g.drawString("SPEED: " + game.getPlayer().getSpeed(), 10, 50);
 	}
 }

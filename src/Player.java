@@ -8,7 +8,7 @@ public class Player extends Entity {
     private static ArrayList<Powerup> powerUps;
     
     public Player(Game game, int lane, int ypos, int hp, int s, String str) {
-    	super(game, lane, ypos, s);
+    	super(game, lane, ypos, s, 1, 10000);
     	health = hp;
     	name = str;
     	powerUps = new ArrayList<Powerup>();
@@ -60,6 +60,11 @@ public class Player extends Entity {
     }
     
     
+    
+    public void update()
+    {
+    	accelerate();
+    }
     public void draw(Graphics g)
     {
     	g.setColor(Color.BLUE);

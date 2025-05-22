@@ -1,8 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 
+import javax.imageio.ImageIO;
+
 public class Enemy extends Entity {
+	private BufferedImage image;
 	private boolean alive;
 	private int laneChangeCdMax;
 	private int laneChangeCd;
@@ -14,6 +20,12 @@ public class Enemy extends Entity {
 	 */
 	public Enemy(Game game, int speed, int cd, double chance) {
 		super(game, (int)(Math.random()*3),0, speed);
+    	try {
+			image = ImageIO.read(new File("images/enemy_car.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		laneChangeCdMax = cd;
 		laneChangeCd = (int)(Math.random() * laneChangeCdMax);
 		laneChangeChance = chance;
@@ -87,7 +99,8 @@ public class Enemy extends Entity {
 	
 	public void draw(Graphics g)
 	{
-		g.setColor(Color.RED);
-    	g.fillRect(150 * getLane() + 50, getY() - 50, 50, 100);
+//		g.setColor(Color.RED);
+//    	g.fillRect(150 * getLane() + 50, getY() - 50, 50, 100);
+    	g.drawImage(image, 150 * getLane() + 75 - 78, getY() - 75, 150, 150, null);
 	}
 }

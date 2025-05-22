@@ -1,15 +1,28 @@
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Gun extends Powerup {
+	private BufferedImage image;
 	private int ammo;
-	public static int totalAmmo = 0;
 	
 	public Gun(Game game, int ammoAmt, String name, String description) {
 		super(game, name, description);
+    	try {
+			image = ImageIO.read(new File("images/gun.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.ammo = ammoAmt;
 	}
 	
 	public void shoot() {
-		if (totalAmmo > 0) {
-			totalAmmo--;
+		if (ammo > 0) {
+			ammo--;
 			Bullet bullet = new Bullet(getGame(), 10); // creates new bullet object to shoot
 			bullet.update();
 			// car that gets shot can no longer change lanes
@@ -20,25 +33,21 @@ public class Gun extends Powerup {
 		return ammo;
 	}
 	
-	public void getAmmo(Player p) { // if player already has a gun and picks up another gun powerup then just get additional ammo
-		totalAmmo += ammo;
-	}
-	
 	public void apply(Player p) {
-		if (super.pickedUp) { // checks if player already has gun
-			boolean alreadyHasGun = false;
-			for (Powerup powerup : p.getPowerups()) {
-				if (powerup instanceof Gun) {
-					((Gun) powerup).ammo += this.ammo;
-					totalAmmo += this.ammo;
-					alreadyHasGun = true;
-					break;
-				}
-			}
-			if (!alreadyHasGun) { // if the player does not have a gun already then add gun to powerup arraylist
-				p.addPowerUp(this);
-				totalAmmo += this.ammo;
+		int totalAmmo = 0;
+		for (int i = p.getPowerups().size() - 1; i >= 0; i--)
+		{
+			Powerup powerup = p.getPowerups().get(i);
+			if (powerup instanceof Gun) {
+				totalAmmo += ((Gun)powerup).getAmmo();
+				p.removePowerUp(powerup);
 			}
 		}
+		p.addPowerUp(new Gun(getGame(), totalAmmo, "gun", "spacebar to shoot"));
+	}
+	
+	public void draw(Graphics g)
+	{
+    	g.drawImage(image, 150 * getLane() + 75 - 50, getY() - 50, 100, 100, null);
 	}
 }

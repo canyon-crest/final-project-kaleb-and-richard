@@ -67,6 +67,7 @@ public class Game implements KeyListener {
 		player.changeAccelRate(10000);
 		player.changeMaxSpeed(30);
 		entities = new ArrayList<Entity>();
+		addEntity(new Gun(this, 3, "gun", "press space to shoot"));
 		update();
 		timer.start();
 	}
@@ -129,13 +130,14 @@ public class Game implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) { //code for the controls
 		// TODO Auto-generated method stub
-		//System.out.println(e.getKeyCode());
+		System.out.println(e.getKeyCode());
 		if (e.getKeyCode() == 68 && player.getLane() < 2) // d moves car to the right
 			player.setLane(player.getLane() + 1);
 		if (e.getKeyCode() == 65 && player.getLane() > 0) // a moves car to the left
 			player.setLane(player.getLane() - 1);
 		if (e.getKeyCode() == 32) { //spacebar fires gun
 			for (Powerup i : player.getPowerups()) {
+				System.out.println(i.getName());
 				if (i instanceof Gun) {
 					((Gun)i).shoot();
 					return; // break out of loop after shooting gun once

@@ -105,7 +105,7 @@ public class Player extends Entity {
     public void update()
     {
     	accelerate();
-    	applyPowerUps();
+    	this.applyPowerUps();
     }
     public void draw(Graphics g)
     {

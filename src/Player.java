@@ -12,6 +12,7 @@ public class Player extends Entity {
     private int health;
     private String name;
     private ArrayList<Powerup> powerUps;
+	private int ammo;
     
     /*
      * @param lane: lane where player starts
@@ -31,6 +32,7 @@ public class Player extends Entity {
     	health = hp;
     	name = str;
     	powerUps = new ArrayList<Powerup>();
+    	ammo = 0;
     }
     
     public void addPowerUp(Powerup p) { // this method is called to add a powerup to the player every time player picks up a powerup
@@ -73,11 +75,30 @@ public class Player extends Entity {
     public void applyPowerUps() { // loops thru powerUps and applies the powerups that are not in effect, and then removes ones that are in effect already
     	for (int i = powerUps.size()-1; i>=0; i--) {
     		powerUps.get(i).apply(this);
-    		if (powerUps.get(i).isPickedUp()) {
-    			this.removePowerUp(powerUps.get(i));
-    		}
+    		powerUps.remove(i);
     	}
     }
+    
+    public void addAmmo(int amount)
+    {
+    	ammo += amount;
+    }
+    public int getAmmo() {
+		return ammo;
+	}
+	
+	public void shoot() {
+		if (ammo > 0) {
+			ammo--;
+			getGame().addEntity(new Bullet(getGame(), 20)); 
+			// car that gets shot can no longer change lanes
+		}
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
     
     
     @Override

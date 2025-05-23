@@ -38,6 +38,8 @@ public class Enemy extends Entity {
 	
 	public void die() {
 		alive = false;
+		changeAccel(-1);
+		changeAccelRate(250);
 	}
 	
 	public void changeLane(Player p) {
@@ -86,7 +88,7 @@ public class Enemy extends Entity {
 			}
 		}
 		super.update();
-		if (isTouching(p) && alive)
+		if (isTouching(p))
 		{
 			//player loses a life
 			//enemy is destroyed
@@ -94,6 +96,7 @@ public class Enemy extends Entity {
 			changeAccelRate(-1);
 			
 			die();
+			delete();
 		}
 	}
 	

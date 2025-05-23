@@ -35,6 +35,7 @@ public class Entity {
 	 * @param accelRate: rate at which the player's speed will increase
 	*/
 	public Entity(Game game, int startLane, int startY, int startSpeed, int accel, int accelRate) {
+		parentGame = game;
 		lane = startLane;
 		yPos = startY;
 		speed = startSpeed;
@@ -134,6 +135,9 @@ public class Entity {
 		accelerate();
 		move(p);
 		if (yPos > Game.HEIGHT) {
+			delete();
+		}
+		if (yPos < 0) {
 			delete();
 		}
 	}

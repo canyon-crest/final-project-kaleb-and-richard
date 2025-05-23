@@ -15,6 +15,7 @@ public class Game implements KeyListener {
 	private JFrame frame;
 	private GamePanel panel;
 	private Timer timer;
+	private Timer timer2;
 	
 	private Player player;
 	private ArrayList<Entity> entities;
@@ -29,6 +30,10 @@ public class Game implements KeyListener {
 	
 	private int score;
 	private int scoreCd;
+	public static int highScore = 0;
+	public static String highScoreHolder = "";
+	
+	public boolean gameOver;
 	
 	public static void main(String[] args) {
 		new Game().run(); // runs the game
@@ -45,12 +50,14 @@ public class Game implements KeyListener {
 		frame.addKeyListener(this);
 		
 		timer = new Timer(1000/FPS, (e) -> update());
+		timer2 = new Timer(1000/FPS, (e) -> panel.update(panel.getGraphics()));
 		
 		startGame();
 	}
 
 	public void startGame()
 	{
+		score = 0;
 		//initiate the variables/stats for the enemies
 		spawnEnemyCd = 0;
 		spawnEnemyCdMax = 2000;
@@ -70,10 +77,15 @@ public class Game implements KeyListener {
 		addEntity(new Gun(this, 3, "gun", "press space to shoot"));
 		update();
 		timer.start();
+		timer2.start();
+		gameOver = false;
 	}
 	
 	private void update() {
 		// TODO Auto-generated method stub
+		if (gameOver)
+			return;
+		
 		spawnEnemyCdMax = (int) (2000 / (player.getSpeed() / 10.0));
 		score();
 		
@@ -111,37 +123,44 @@ public class Game implements KeyListener {
 		}
 		player.update();
 		
-		panel.update(panel.getGraphics());
+		if (player.getHealth() <= 0)
+		{
+			gameOver();
+		}
+//		panel.update(panel.getGraphics());
+	}
+
+	private void gameOver() {
+		if (score > highScore)
+		{
+			highScore = score;
+			highScoreHolder = player.getName();
+		}
+		gameOver = true;
+		timer.stop();
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) { // shoot gun when spacebar is pressed
 		// TODO Auto-generated method stub
-		if (e.getKeyChar() == ' ') {
-			for (Powerup p : player.getPowerups()) {
-				if (p instanceof Gun) {
-					((Gun) p).shoot();
-					break;
-				}
-			}
-		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) { //code for the controls
 		// TODO Auto-generated method stub
-		System.out.println(e.getKeyCode());
+//		System.out.println(e.getKeyCode());
 		if (e.getKeyCode() == 68 && player.getLane() < 2) // d moves car to the right
 			player.setLane(player.getLane() + 1);
 		if (e.getKeyCode() == 65 && player.getLane() > 0) // a moves car to the left
 			player.setLane(player.getLane() - 1);
 		if (e.getKeyCode() == 32) { //spacebar fires gun
-			for (Powerup i : player.getPowerups()) {
-				System.out.println(i.getName());
-				if (i instanceof Gun) {
-					((Gun)i).shoot();
-					return; // break out of loop after shooting gun once
-				}
+			if (gameOver)
+			{
+				startGame();
+			}
+			else
+			{
+				player.shoot();
 			}
 		}
 	}

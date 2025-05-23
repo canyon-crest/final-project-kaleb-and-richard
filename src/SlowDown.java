@@ -21,6 +21,13 @@ public class SlowDown extends Powerup {
 		if (p.getSpeed() > s) {
 			p.setSpeed(p.getSpeed() - s);
 		}
+		for (Entity i : getGame().getEntities())
+		{
+			if (i.getSpeed() > s)
+			{
+				i.setSpeed((int)(p.getSpeed() * 0.75));
+			}
+		}
 	}
 	
 	public void apply(Player p) {

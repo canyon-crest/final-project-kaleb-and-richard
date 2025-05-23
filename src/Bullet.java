@@ -24,6 +24,7 @@ public class Bullet extends Entity {
 		for (Entity i : getGame().getEntities()) {
 			if (isTouching(i) && i instanceof Enemy) {
 				((Enemy)i).die();
+				this.delete();
 			}
 		}
 	}

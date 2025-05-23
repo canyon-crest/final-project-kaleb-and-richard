@@ -20,30 +20,16 @@ public class Gun extends Powerup {
 		this.ammo = ammoAmt;
 	}
 	
-	public void shoot() {
-		if (ammo > 0) {
-			ammo--;
-			Bullet bullet = new Bullet(getGame(), 10); // creates new bullet object to shoot
-			bullet.update();
-			// car that gets shot can no longer change lanes
-		}
-	}
-	
 	public int getAmmo() {
 		return ammo;
 	}
 	
 	public void apply(Player p) {
-		int totalAmmo = 0;
-		for (int i = p.getPowerups().size() - 1; i >= 0; i--)
+		if (super.pickedUp)
 		{
-			Powerup powerup = p.getPowerups().get(i);
-			if (powerup instanceof Gun) {
-				totalAmmo += ((Gun)powerup).getAmmo();
-				p.removePowerUp(powerup);
-			}
+			p.addAmmo(ammo);
 		}
-		p.addPowerUp(new Gun(getGame(), totalAmmo, "gun", "spacebar to shoot"));
+		super.pickedUp = false;
 	}
 	
 	public void draw(Graphics g)

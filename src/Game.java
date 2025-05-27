@@ -50,7 +50,6 @@ public class Game implements KeyListener {
 		frame.addKeyListener(this);
 		
 		timer = new Timer(1000/FPS, (e) -> update());
-		timer2 = new Timer(1000/FPS, (e) -> panel.update(panel.getGraphics()));
 		
 		startGame();
 	}
@@ -74,10 +73,8 @@ public class Game implements KeyListener {
 		player.changeAccelRate(10000);
 		player.changeMaxSpeed(30);
 		entities = new ArrayList<Entity>();
-		addEntity(new Gun(this, 3, "gun", "press space to shoot"));
 		update();
 		timer.start();
-		timer2.start();
 		gameOver = false;
 	}
 	
@@ -127,7 +124,7 @@ public class Game implements KeyListener {
 		{
 			gameOver();
 		}
-//		panel.update(panel.getGraphics());
+		panel.update(panel.getGraphics());
 	}
 
 	private void gameOver() {

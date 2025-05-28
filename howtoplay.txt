@@ -1,3 +1,4 @@
+Name: Speed
 Premise: You are the blue car and you are speeding, since you are late to work and don't want to be late. The red cars are following the speed limit, so you need to try to avoid crashing into them.
 Controls/How the game works: 
     - Use A and D keys to switch lanes in order to dodge the cars.

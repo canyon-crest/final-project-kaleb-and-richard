@@ -47,6 +47,7 @@ public class Game implements KeyListener {
 		frame.setVisible(true);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.addKeyListener(this);
+		frame.setTitle("Speed");
 		
 		//update every frame
 		timer = new Timer(1000/FPS, (e) -> update());

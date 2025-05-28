@@ -1,0 +1,13 @@
+Premise: You are the blue car and you are speeding, since you are late to work and don't want to be late. The red cars are following the speed limit, so you need to try to avoid crashing into them.
+Controls/How the game works: 
+    - Use A and D keys to switch lanes in order to dodge the cars.
+    - Enemy cars will switch lanes at random, so you need to be as attentive as possible and react quickly.
+    - Your speed will gradually increase as the game progresses, making it increasingly more difficult to dodge enemy cars.
+    - Grab powerups to aid in your speed-limit-breaking endeavor
+Features: 
+    1. Powerups spawn randomly
+        - Glue: Slows you down, making it easier to dodge enemy cars
+        - Gun: Gives you 3 bullets. Press SPACEBAR to fire a bullet. Shot cars will no longer change lanes.
+        - Extra Life: Gives you an extra life, thereby allowing you to run into an enemy car an extra time.
+    2. Cars change lanes at random
+    3. Speed increases gradually

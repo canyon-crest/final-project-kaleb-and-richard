@@ -7,7 +7,6 @@ public class Entity {
 	private int lane;
 	private int yPos;
 	private int maxSpeed;
-	private boolean isDestroyed = false;
 	private int accel;
 	private int accelCd;
 	private int accelRate;

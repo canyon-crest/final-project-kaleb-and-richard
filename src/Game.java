@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Game implements KeyListener {
@@ -15,7 +14,6 @@ public class Game implements KeyListener {
 	private JFrame frame;
 	private GamePanel panel;
 	private Timer timer;
-	private Timer timer2;
 	
 	private Player player;
 	private ArrayList<Entity> entities;
@@ -41,6 +39,7 @@ public class Game implements KeyListener {
 	
 	public void run()
 	{
+		//initialize java swing
 		frame = new JFrame();
 		panel = new GamePanel(this);
 		frame.add(panel);
@@ -49,8 +48,10 @@ public class Game implements KeyListener {
 		frame.setSize(WIDTH, HEIGHT);
 		frame.addKeyListener(this);
 		
+		//update every frame
 		timer = new Timer(1000/FPS, (e) -> update());
 		
+		//start game
 		startGame();
 	}
 
@@ -78,8 +79,7 @@ public class Game implements KeyListener {
 		gameOver = false;
 	}
 	
-	private void update() {
-		// TODO Auto-generated method stub
+	private void update() { //method called by timer every frame 
 		if (gameOver)
 			return;
 		
@@ -127,7 +127,7 @@ public class Game implements KeyListener {
 		panel.update(panel.getGraphics());
 	}
 
-	private void gameOver() {
+	private void gameOver() { //end the game and allow the player to restart
 		if (score > highScore)
 		{
 			highScore = score;
@@ -150,7 +150,7 @@ public class Game implements KeyListener {
 			player.setLane(player.getLane() + 1);
 		if (e.getKeyCode() == 65 && player.getLane() > 0) // a moves car to the left
 			player.setLane(player.getLane() - 1);
-		if (e.getKeyCode() == 32) { //spacebar fires gun
+		if (e.getKeyCode() == 32) { //spacebar fires gun and restarts the game when the player loses
 			if (gameOver)
 			{
 				startGame();
@@ -170,11 +170,11 @@ public class Game implements KeyListener {
 	
 	
 	
-	public void spawnEnemy()
+	public void spawnEnemy() //creates an enemy object and adds it to the entity list
 	{
 		addEntity(new Enemy(this, (int)(player.getSpeed() * 0.75), 10000/player.getSpeed(), 0.5));
 	}
-	public void spawnPowerup()
+	public void spawnPowerup() //spawns a random powerup and adds it to the entity list
 	{
 		int rand = (int)(Math.random() * 3);
 		if (rand == 0)
@@ -185,21 +185,21 @@ public class Game implements KeyListener {
 			addEntity(new Gun(this, 3, "gun", "press space to shoot"));
 	}
 	
-	public Player getPlayer()
+	public Player getPlayer() //retrieves the player object
 	{
 		return player;
 	}
-	public ArrayList<Entity> getEntities()
+	public ArrayList<Entity> getEntities() //retrieves the entity list
 	{
 		return entities;
 	}
 	
-	public void addEntity(Entity e)
+	public void addEntity(Entity e) //adds an entity to the entity list
 	{
 		entities.add(0, e);
 	}
 	
-	public void score()
+	public void score() //increments score each second
 	{
 		if (scoreCd > 1000)
 		{
@@ -209,7 +209,7 @@ public class Game implements KeyListener {
 		else
 			scoreCd += 1000/FPS;
 	}
-	public int getScore()
+	public int getScore() //retrieve the score variable
 	{
 		return score;
 	}

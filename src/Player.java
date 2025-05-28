@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,9 +35,7 @@ public class Player extends Entity {
     }
     
     public void addPowerUp(Powerup p) { // this method is called to add a powerup to the player every time player picks up a powerup
-    	if (!(p.getName().equals("Gun"))) {
-    		powerUps.add(p);
-    	}
+    	powerUps.add(p);
     }
     
     public void removePowerUp(Powerup p) { // once powerup effect has been applied the powerup is removed from the player
